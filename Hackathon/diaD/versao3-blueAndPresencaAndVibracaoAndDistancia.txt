@@ -1,0 +1,85 @@
+
+//Bluethoot
+#include <SoftwareSerial.h>//
+SoftwareSerial mySerial(2, 3); // 2-RX, 3-TX 
+
+//Sensor Ultrasonic
+#include <Ultrasonic.h>
+#define TRIGGER_PIN  7
+#define ECHO_PIN     6
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
+
+int sirene = 13;
+int ledAzul = 12;
+int ledVermelho = 5;
+int sensorDeContato=11;
+int sensorDeMovimento = 9;
+int statusSensorContato;
+
+char podeLiberarBike;
+
+
+ void setup(){
+    pinMode(ledVermelho, OUTPUT);
+   mySerial.begin(9600);
+   pinMode(ledAzul, OUTPUT);
+   pinMode(sirene, OUTPUT);
+   pinMode(sensorDeContato, INPUT);
+   pinMode(sensorDeMovimento, INPUT);
+   podeLiberarBike ='N';
+ }
+
+ void loop() {
+  bluethoot();
+  sensorContato();
+  sensorMovimento();
+  sensorVelocidade();
+}
+
+void sensorVelocidade(){
+  float cmMsec, inMsec;
+  long microsec = ultrasonic.timing(); //tempo gasto do som (max:5000 min:300)
+  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);//centimetros (max:90 min: 5)
+  
+  if(cmMsec < 10){
+    digitalWrite(ledVermelho, HIGH);
+  }else{
+   digitalWrite(ledVermelho, LOW);
+  }  
+}
+  
+
+ void sensorMovimento(){
+   int acionamento = digitalRead(sensorDeMovimento); 
+   if (acionamento == HIGH and podeLiberarBike == 'S'){
+     for(int i; i<=10;i++){
+      digitalWrite(ledAzul, LOW);
+      delay(10);
+      digitalWrite(ledAzul, HIGH);
+     }
+   }
+}
+ 
+ 
+ void sensorContato(){
+     statusSensorContato = digitalRead(sensorDeContato);
+     if (statusSensorContato == LOW and podeLiberarBike == 'N'){
+        digitalWrite(sirene, HIGH);//COLOCAR SOM DE SIRENE
+     }else{
+        digitalWrite(sirene, LOW);
+     }
+ }
+
+void bluethoot(){
+    char caracter = mySerial.read();
+    
+    if(caracter == 'A'){
+       digitalWrite(ledAzul,HIGH);
+       podeLiberarBike = 'S';
+    }
+    if(caracter == 'a'){
+      digitalWrite(ledAzul,LOW);
+      podeLiberarBike = 'N';
+    }
+    delay(10);
+}

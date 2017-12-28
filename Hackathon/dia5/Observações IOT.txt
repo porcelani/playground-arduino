@@ -1,0 +1,29 @@
+Jorge (IOT)
+>CrazyTechGuys, site  de IOT
+>www.jorgemaia.com.br
+
+
+>NetDuino, plataforma com programação própria em C#(debug,ide...)
+programação para arduino emulado com debug????
+
+>protocolos M2M????
+
+
+Protocolos IOT (protocolos de mensageria. Não salva dados)
+-MQTT, consome 2bytes de cabeçalho;
+RSMB, broker de mensagens MQTT produzido de modo gratuito pela IBM, porta de utilização 1833;
+Mosquito, broker opensource
+
+-AmQP,mensageria utilizada pela Microsoft
+
+-AllJoyn, muito mais complexo. Tenta unificar a comunição machine-to-machine. Sendo aderido pela industria.
+Codigo livre;
+
+
+Vitor Cezar[Meriat] (Cloud)
+>vitormeriat.com.br
+
+Num modelos bases:
+IaaS (Infraestrutura como serviço), maquinas na nuvem
+PaaS (Plataforma como serviço),
+SaaS (Software como serviço),

@@ -1,0 +1,5 @@
+Encolder
+-Parecido com o potenciomentro;
+-trabalha com pulsos PWM;
+-Tem boa precisão;
+-Com os pulsos sabemos para que lado sendo girado;
